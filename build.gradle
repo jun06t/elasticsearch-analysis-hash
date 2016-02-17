@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name 'sonatype-snapshots'
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        jcenter()
+    }
+    dependencies {
+        // Version of elasticsearch
+        classpath "org.elasticsearch.gradle:build-tools:3.0.0-SNAPSHOT"
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'elasticsearch.esplugin'
+
+// Version of the plugin
+version = '3.0.0-SNAPSHOT'
+
+esplugin {
+    description 'ElasticSearch Plugin with Native Script Examples.'
+    classname 'org.elasticsearch.plugin.analysis.hashr.AnalysisHashrPlugin'
+}
+
+compileJava.options.compilerArgs << "-Xlint:-deprecation"
+
+thirdPartyAudit.enabled = false
+licenseHeaders.enabled = false
+checkstyleMain.enabled = false
+checkstyleTest.enabled = false
+test.enabled = false
+integTest.enabled = false
+
+task buildPluginZip(type: Zip, dependsOn:[':jar']) {
+    baseName = 'elasticsearch-analysis-hashr'
+    classifier = 'plugin'
+    from files(libsDir)
+    from 'generated-resources'
+}
+
+// define artifacts
+artifacts {
+    archives buildPluginZip
+}
