@@ -13,5 +13,5 @@ The following table shows the compatible versions of Elasticsearch and Hash Anal
 
 |Plugin|Elasticsearch|URL|
 |---|---|---|
-|2.2.0|2.2.0||
+|2.2.0|2.2.0|https://bintray.com/artifact/download/jun06t/maven/elasticsearch-analysis-hash-2.2.0-plugin.zip|
 
