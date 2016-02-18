@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.elasticsearch.plugin.analysis.hashr;
+package org.elasticsearch.plugin.analysis.hash;
 
 import org.elasticsearch.index.analysis.HashAnalysisBinderProcessor;
 import org.elasticsearch.index.analysis.AnalysisModule;

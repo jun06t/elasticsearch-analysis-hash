@@ -19,7 +19,7 @@ task wrapper(type: Wrapper) {
 }
 
 task buildPluginZip(type: Zip, dependsOn:[':jar']) {
-    baseName = 'elasticsearch-sample'
+    baseName = 'elasticsearch-analysis-hash'
     classifier = 'plugin'
     from files(libsDir)
     from 'src/main/resources/'
