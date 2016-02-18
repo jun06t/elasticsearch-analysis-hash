@@ -19,14 +19,19 @@
 
 package org.elasticsearch.index.analysis;
 
-public class HashAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderProcessor {
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.core.WhitespaceTokenizer;
+import org.apache.lucene.analysis.standard.StandardFilter;
+
+public class HashAnalyzer extends Analyzer {
 
     @Override
-    public void processAnalyzers(AnalyzersBindings analyzersBindings) {
-        analyzersBindings.processAnalyzer("hash", HashAnalyzerProvider.class);
-    }
-
-    @Override
-    public void processTokenFilters(TokenFiltersBindings tokenFiltersBindings) {
+    protected TokenStreamComponents createComponents(String fieldName) {
+        Tokenizer src = new WhitespaceTokenizer();
+        TokenStream tok = new StandardFilter(src);
+        tok = new HashTokenFilter(tok);
+        return new TokenStreamComponents(src, tok);
     }
 }

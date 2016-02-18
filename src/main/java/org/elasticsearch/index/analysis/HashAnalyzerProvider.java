@@ -19,14 +19,24 @@
 
 package org.elasticsearch.index.analysis;
 
-public class HashAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderProcessor {
+import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.common.inject.assistedinject.Assisted;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.index.Index;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
-    @Override
-    public void processAnalyzers(AnalyzersBindings analyzersBindings) {
-        analyzersBindings.processAnalyzer("hash", HashAnalyzerProvider.class);
+public class HashAnalyzerProvider extends AbstractIndexAnalyzerProvider<HashAnalyzer> {
+
+    private final HashAnalyzer analyzer;
+
+    @Inject
+    public HashAnalyzerProvider(Index index, IndexSettingsService indexSettingsService, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettingsService.indexSettings(), name, settings);
+        analyzer = new HashAnalyzer();
     }
 
     @Override
-    public void processTokenFilters(TokenFiltersBindings tokenFiltersBindings) {
+    public HashAnalyzer get() {
+        return this.analyzer;
     }
 }
