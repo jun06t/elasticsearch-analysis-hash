@@ -19,23 +19,17 @@
 
 package org.elasticsearch.index.analysis;
 
-import org.elasticsearch.common.inject.Inject;
-import org.apache.lucene.analysis.TokenStream;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.index.Index;
-import org.elasticsearch.index.settings.IndexSettingsService;
+import org.elasticsearch.index.analysis.AnalysisModule;
+import org.elasticsearch.index.analysis.HashTokenFilterFactory;
 
-/**
- *
- */
-public class HashTokenFilterFactory extends AbstractTokenFilterFactory {
-    @Inject
-    public HashTokenFilterFactory(Index index, IndexSettingsService indexSettingsService, String name, Settings settings) {
-        super(index, indexSettingsService.indexSettings(), name, settings);
+public class HashAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderProcessor {
+
+    @Override
+    public void processAnalyzers(AnalyzersBindings analyzersBindings) {
     }
 
     @Override
-    public TokenStream create(TokenStream tokenStream) {
-        return new HashTokenFilter(tokenStream);
+    public void processTokenFilters(TokenFiltersBindings tokenFiltersBindings) {
+        tokenFiltersBindings.processTokenFilter("hash", HashTokenFilterFactory.class);
     }
 }

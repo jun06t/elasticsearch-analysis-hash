@@ -19,8 +19,8 @@
 
 package org.elasticsearch.plugin.analysis.hashr;
 
-import org.elasticsearch.index.analysis.HashTokenFilterFactory;
-import org.elasticsearch.indices.analysis.AnalysisModule;
+import org.elasticsearch.index.analysis.HashAnalysisBinderProcessor;
+import org.elasticsearch.index.analysis.AnalysisModule;
 import org.elasticsearch.plugins.Plugin;
 
 /**
@@ -38,7 +38,7 @@ public class AnalysisHashPlugin extends Plugin {
     }
 
     public void onModule(AnalysisModule module){
-        module.registerTokenFilter("hash", HashTokenFilterFactory::new);
+        module.addProcessor(new HashAnalysisBinderProcessor());
     }
 }
 
